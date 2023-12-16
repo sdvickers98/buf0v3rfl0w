@@ -1,0 +1,168 @@
+{
+  "main": {
+    "id": "faccb256da408910",
+    "type": "split",
+    "children": [
+      {
+        "id": "9b537bfcc23ae86a",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "191abbec49971a9d",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "posts/eJPT Review.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "0d9273e6f63cdab7",
+    "type": "split",
+    "children": [
+      {
+        "id": "104e70dbaeb2e06a",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "326aad442f28f904",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "7555c2258fc0a90f",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "ff225b70414a240f",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "91990133ea6edcc8",
+    "type": "split",
+    "children": [
+      {
+        "id": "471189d0b653ca86",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "e2c512e84c422a92",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "posts/eJPT Review.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "a59d0e119c640516",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "posts/eJPT Review.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "b17995f9869a255b",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "55580ede686f4583",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "posts/eJPT Review.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "191abbec49971a9d",
+  "lastOpenFiles": [
+    "posts/_index.md",
+    "posts/eJPT Review.md",
+    "_index.md",
+    "about/_index.md",
+    "contact/_index.md",
+    "contact",
+    "Untitled.md",
+    "about",
+    "posts",
+    "en/index.md",
+    "en/posts/eJPT Review.md",
+    "en/posts",
+    "en/about/index.md",
+    "en/about",
+    "en",
+    "New folder"
+  ]
+}
