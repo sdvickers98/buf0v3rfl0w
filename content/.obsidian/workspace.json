@@ -148,9 +148,9 @@
   },
   "active": "d5faa9d29674d30c",
   "lastOpenFiles": [
-    "_index.md",
-    "posts/_index.md",
     "contact/_index.md",
+    "posts/_index.md",
+    "_index.md",
     "about/_index.md",
     "posts/eJPT Review.md",
     "posts/HTB Broker Writeup.md",

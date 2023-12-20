@@ -2,7 +2,7 @@
 title = 'About Me'
 date = 2023-12-15T16:54:38-05:00
 draft = false
-featured_image = 'CoverBackground.jpg'
+featured_image = 'cover.png'
 
 +++
 
