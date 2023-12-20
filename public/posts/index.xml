@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on buf0v3rfl0w</title>
+    <link>https://bufoverflow.com/posts/</link>
+    <description>Recent content in Posts on buf0v3rfl0w</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 15 Dec 2023 18:33:07 -0500</lastBuildDate>
+    <atom:link href="https://bufoverflow.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>HTB Devvortex Writeup</title>
+      <link>https://bufoverflow.com/posts/htp-devvortex-writeup/</link>
+      <pubDate>Mon, 18 Dec 2023 12:00:23 -0500</pubDate>
+      <guid>https://bufoverflow.com/posts/htp-devvortex-writeup/</guid>
+      <description>Here&amp;rsquo;s a seasonal HackTheBox machine from last month: Devvortex. Let&amp;rsquo;s get started.&#xA;Scanning and Enumeration As always, I start by adding the IP address to my /etc/hosts file and running an nmap scan&#xA;So we&amp;rsquo;ve got two open ports, 22 and 80. Visiting the webserver on port 80 gives me this homepage&#xA;Looking around the website didn&amp;rsquo;t seem like it would lead anywhere, so I continued enumeration by searching for directories and subdomains using gobuster</description>
+    </item>
+    <item>
+      <title>HTB Broker Writeup</title>
+      <link>https://bufoverflow.com/posts/htb-broker-writeup/</link>
+      <pubDate>Sun, 17 Dec 2023 12:05:26 -0500</pubDate>
+      <guid>https://bufoverflow.com/posts/htb-broker-writeup/</guid>
+      <description>We&amp;rsquo;ve got another HTB Writeup, this time it&amp;rsquo;s an Easy-difficulty machine released earlier this year: Broker. This machine highlights a recently-disclosed vulnerability in a popular message broker service.&#xA;Enumeration First things first, I added the IP address to /etc/hosts and ran an nmap scan&#xA;Finding Initial Foothold The scan found two open ports. When visiting the web app on port 80, we are prompted with an HTTP basic auth login</description>
+    </item>
+    <item>
+      <title>eJPT Review</title>
+      <link>https://bufoverflow.com/posts/ejpt-review/</link>
+      <pubDate>Fri, 01 Dec 2023 23:46:46 -0500</pubDate>
+      <guid>https://bufoverflow.com/posts/ejpt-review/</guid>
+      <description>Having attained my CEH (Certified Ethical Hacker) last year, I wanted to take a practical certification exam that required me to actually carry out some form of penetration testing in order to pass. I wasn&amp;rsquo;t very interested in the CEH Practical exam, and I didn&amp;rsquo;t feel confident enough in my skills to tackle the OSCP (Offensive Security Certified Professional). The eLearnSecurity certifications have become more and more popular over the last few years, and the eJPT (eLearnSecurity Junior Penetration Tester) certification seemed to be what I was looking for.</description>
+    </item>
+    <item>
+      <title>HTB Phonebook Writeup</title>
+      <link>https://bufoverflow.com/posts/htb-phonebook-writeup/</link>
+      <pubDate>Fri, 24 Nov 2023 00:54:07 -0500</pubDate>
+      <guid>https://bufoverflow.com/posts/htb-phonebook-writeup/</guid>
+      <description>Here&amp;rsquo;s my first HackTheBox writeup: Phonebook. This is a retired web challenge that&amp;rsquo;s pretty simple. Let&amp;rsquo;s get started.&#xA;HackTheBox machines and challenges typically have names that hint at what their theme is. A name like &amp;lsquo;Phonebook&amp;rsquo; definitely makes me think of brute-forcing. Maybe we&amp;rsquo;ll come back to that later.&#xA;When we visit the target URL, we&amp;rsquo;re greeted with a login page&#xA;There&amp;rsquo;s a message from someone named Reese, this might be a hint at a potential username.</description>
+    </item>
+  </channel>
+</rss>

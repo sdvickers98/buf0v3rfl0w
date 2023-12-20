@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "9b537bfcc23ae86a",
+        "id": "15d2b79ec4300437",
         "type": "tabs",
         "children": [
           {
-            "id": "191abbec49971a9d",
+            "id": "d5faa9d29674d30c",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "posts/eJPT Review.md",
+                "file": "about/_index.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "posts/eJPT Review.md",
+                "file": "about/_index.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "posts/eJPT Review.md",
+                "file": "about/_index.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "posts/eJPT Review.md"
+                "file": "about/_index.md"
               }
             }
           }
@@ -146,13 +146,18 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "191abbec49971a9d",
+  "active": "d5faa9d29674d30c",
   "lastOpenFiles": [
-    "posts/_index.md",
-    "posts/eJPT Review.md",
     "_index.md",
-    "about/_index.md",
+    "posts/_index.md",
     "contact/_index.md",
+    "about/_index.md",
+    "posts/eJPT Review.md",
+    "posts/HTB Broker Writeup.md",
+    "posts/HTB Phonebook Writeup.md",
+    "posts/HTP Devvortex Writeup.md",
+    "images/ejpt.PNG.md",
+    "images",
     "contact",
     "Untitled.md",
     "about",

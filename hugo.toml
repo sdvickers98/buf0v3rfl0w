@@ -1,11 +1,11 @@
 title = "buf0v3rfl0w"
-baseURL = "https://example.com"
+baseURL = "https://bufoverflow.com"
 languageCode = "en-us"
 theme = "ananke"
 
 DefaultContentLanguage = "en"
 SectionPagesMenu = "main"
-Paginate = 3 # this is set low for demonstrating with dummy content. Set to a higher number
+Paginate = 9 # this is set low for demonstrating with dummy content. Set to a higher number
 googleAnalytics = ""
 enableRobotsTXT = true
 
@@ -28,13 +28,16 @@ enableRobotsTXT = true
   text_color = "dark-gray"
   author = "Dakota Vickers"
   site_logo = "logo.png"
-  favicon = ""
+  favicon = "image.png"
   description = "The last theme you'll ever need. Maybe."
   # choose a background color from any on this page: https://tachyons.io/docs/themes/skins/ and preface it with "bg-"
   background_color_class = "bg-gray"
   recent_posts_number = 3
   # commentoEnable = true
   show_reading_time = true
+
+[params.meta]
+  favicon = true
 
 [[params.ananke_socials]]
 	name = "twitter"
@@ -50,3 +53,9 @@ enableRobotsTXT = true
 
 [markup.goldmark.renderer]
 	unsafe = true
+
+[deplayment]
+
+[[deployment.targets]]
+  name = "production"
+  URL = "s3://bufoverflow.com?region=us-east-2"
