@@ -9,6 +9,13 @@
     <lastBuildDate>Fri, 15 Dec 2023 18:33:07 -0500</lastBuildDate>
     <atom:link href="https://bufoverflow.com/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>HTB i-like-to Writeup</title>
+      <link>https://bufoverflow.com/posts/htb-i-like-to-writeup/</link>
+      <pubDate>Fri, 22 Dec 2023 00:08:38 -0500</pubDate>
+      <guid>https://bufoverflow.com/posts/htb-i-like-to-writeup/</guid>
+      <description>This is a HackTheBox Sherlock challenge, which is a new type of blue-team lab that HackTheBox introduced last month. These defensive security labs simulate real attack scenarios and require you to investigate in order to answer a series of questions about the incident.&#xA;I want to preface by saying that I&amp;rsquo;m no expert on blue-team techniques, and that&amp;rsquo;s why I actually wanted to do this challenge in the first place. I&amp;rsquo;m very interested in learning more about Digital Forensics and Incident Response (DFIR), and I&amp;rsquo;m using these new Sherlock labs as part of that effort.</description>
+    </item>
+    <item>
       <title>HTB Devvortex Writeup</title>
       <link>https://bufoverflow.com/posts/htp-devvortex-writeup/</link>
       <pubDate>Mon, 18 Dec 2023 12:00:23 -0500</pubDate>

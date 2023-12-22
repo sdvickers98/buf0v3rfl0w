@@ -15,7 +15,7 @@ I had finally found what I was meant to do, and I'm confident that I'll work in 
 
 As of the time I'm writing this (December 2023), I'm expecting to be a father by the end of the month, and I want to do everything I possibly can to have a successful career in this field and provide for my family.
 
-In my free time, I like spending time with my wife, bingeing TV shows and movies, playing videogames, reading, and playing piano.
+In my free time, I like spending time with my wife, bingeing TV shows and movies, playing videogames, reading, and playing piano. I'm also a huge UGA sports fan, Go Dawgs!
 
 Thanks for checking out the blog,
 

