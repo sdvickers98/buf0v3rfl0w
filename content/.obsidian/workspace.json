@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "15d2b79ec4300437",
+        "id": "d19475b764eb5a66",
         "type": "tabs",
         "children": [
           {
-            "id": "d5faa9d29674d30c",
+            "id": "077876bfe173f85f",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "posts/HTB i-like-to Writeup.md",
+                "file": "posts/HTB Authority Writeup.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "posts/HTB i-like-to Writeup.md",
+                "file": "posts/HTB Authority Writeup.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "posts/HTB i-like-to Writeup.md",
+                "file": "posts/HTB Authority Writeup.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "posts/HTB i-like-to Writeup.md"
+                "file": "posts/HTB Authority Writeup.md"
               }
             }
           }
@@ -146,20 +146,23 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "d5faa9d29674d30c",
+  "active": "077876bfe173f85f",
   "lastOpenFiles": [
-    "Pasted image 20231221224810.png",
+    "images/authority/enrollment.png.md",
+    "posts/HTB Authority Writeup.md",
+    "images/authority",
+    "images",
+    "posts/_index.md",
     "posts/HTB i-like-to Writeup.md",
+    "Pasted image 20231221224810.png",
     "posts/HTB Broker Writeup.md",
     "posts/HTP Devvortex Writeup.md",
     "about/_index.md",
     "_index.md",
     "contact/_index.md",
-    "posts/_index.md",
     "posts/eJPT Review.md",
     "posts/HTB Phonebook Writeup.md",
     "images/ejpt.PNG.md",
-    "images",
     "contact",
     "Untitled.md",
     "about",
